@@ -95,7 +95,7 @@ public class Model extends Observable {
     }
 
     public int findFirstEmptyRow(int c, int row) {
-        for(int r = row - 1; r >= 0; r -= 1) {
+        for(int r = row; r >= 0; r -= 1) {
             if(board.tile(c, r) == null) {
                 return r;
             }
@@ -128,15 +128,15 @@ public class Model extends Observable {
                         changed = true;
                     }
                     else {
+                        changed = true;
                         if(firstEmptyRow != -1) {
                             board.move(c, firstEmptyRow, t);
                             lastFilledRow = firstEmptyRow;
                             firstEmptyRow = findFirstEmptyRow(c, firstEmptyRow);
-                            changed = true;
+
                         }
                         else {
                             lastFilledRow = r;
-                            changed = true;
                         }
                     }
                 }
@@ -170,7 +170,7 @@ public class Model extends Observable {
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
-
+        board.setViewingPerspective(side);
         for (int c = 0; c < board.size(); c += 1) {
             if(!changed) {
                 changed = tiltColumn(c);
@@ -179,9 +179,9 @@ public class Model extends Observable {
                 tiltColumn(c);
             }
         }
+        board.setViewingPerspective(Side.NORTH);
         checkGameOver();
         if (changed) {
-            System.out.println(changed);
             setChanged();
         }
         return changed;
