@@ -95,7 +95,7 @@ public class Model extends Observable {
     }
 
     public int findFirstEmptyRow(int c, int row) {
-        for(int r = row; r >= 0; r -= 1) {
+        for(int r = row - 1; r >= 0; r -= 1) {
             if(board.tile(c, r) == null) {
                 return r;
             }
@@ -123,18 +123,20 @@ public class Model extends Observable {
                     if(board.tile(c, lastFilledRow).value() == t.value() && lastFilledRow != lastMergedRow) {
                         board.move(c, lastFilledRow, t);
                         lastMergedRow = lastFilledRow;
-                        firstEmptyRow = findFirstEmptyRow(c, r);
+                        firstEmptyRow = findFirstEmptyRow(c, lastFilledRow);
+                        score += t.value() * 2;
                         changed = true;
                     }
                     else {
                         if(firstEmptyRow != -1) {
                             board.move(c, firstEmptyRow, t);
                             lastFilledRow = firstEmptyRow;
-                            firstEmptyRow = findFirstEmptyRow(c, r);
+                            firstEmptyRow = findFirstEmptyRow(c, firstEmptyRow);
                             changed = true;
                         }
                         else {
                             lastFilledRow = r;
+                            changed = true;
                         }
                     }
                 }
@@ -145,7 +147,6 @@ public class Model extends Observable {
                     changed = true;
                 }
             }
-
         }
         return changed;
     }
@@ -170,7 +171,6 @@ public class Model extends Observable {
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
 
-        checkGameOver();
         for (int c = 0; c < board.size(); c += 1) {
             if(!changed) {
                 changed = tiltColumn(c);
@@ -179,8 +179,9 @@ public class Model extends Observable {
                 tiltColumn(c);
             }
         }
-
+        checkGameOver();
         if (changed) {
+            System.out.println(changed);
             setChanged();
         }
         return changed;
