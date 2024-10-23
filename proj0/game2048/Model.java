@@ -5,7 +5,7 @@ import java.util.Observable;
 
 
 /** The state of a game of 2048.
- *  @author TODO: YOUR NAME HERE
+ *  @author Kevin
  */
 public class Model extends Observable {
     /** Current contents of the board. */
@@ -94,6 +94,62 @@ public class Model extends Observable {
         setChanged();
     }
 
+    public int findFirstEmptyRow(int c, int row) {
+        for(int r = row; r >= 0; r -= 1) {
+            if(board.tile(c, r) == null) {
+                return r;
+            }
+        }
+        return -1;
+    }
+
+    public boolean tiltColumn(int c) {
+        int lastMergedRow = -1;
+        int firstEmptyRow = -1;
+        int lastFilledRow = -1;
+        boolean changed = false;
+        for (int r = board.size() - 1; r >= 0; r -= 1) {
+            Tile t = board.tile(c, r);
+            if(t == null) {
+                if(r > firstEmptyRow) {
+                    firstEmptyRow = r;
+                }
+            }
+            else {
+                if(r == board.size() - 1) {
+                    lastFilledRow = r;
+                }
+                else if(r < lastFilledRow) {
+                    if(board.tile(c, lastFilledRow).value() == t.value() && lastFilledRow != lastMergedRow) {
+                        board.move(c, lastFilledRow, t);
+                        lastMergedRow = lastFilledRow;
+                        firstEmptyRow = findFirstEmptyRow(c, r);
+                        changed = true;
+                    }
+                    else {
+                        if(firstEmptyRow != -1) {
+                            board.move(c, firstEmptyRow, t);
+                            lastFilledRow = firstEmptyRow;
+                            firstEmptyRow = findFirstEmptyRow(c, r);
+                            changed = true;
+                        }
+                        else {
+                            lastFilledRow = r;
+                        }
+                    }
+                }
+                else if(lastFilledRow == -1) {
+                    board.move(c, firstEmptyRow, t);
+                    lastFilledRow = firstEmptyRow;
+                    firstEmptyRow = findFirstEmptyRow(c, r);
+                    changed = true;
+                }
+            }
+
+        }
+        return changed;
+    }
+
     /** Tilt the board toward SIDE. Return true iff this changes the board.
      *
      * 1. If two Tile objects are adjacent in the direction of motion and have
@@ -115,6 +171,15 @@ public class Model extends Observable {
         // changed local variable to true.
 
         checkGameOver();
+        for (int c = 0; c < board.size(); c += 1) {
+            if(!changed) {
+                changed = tiltColumn(c);
+            }
+            else {
+                tiltColumn(c);
+            }
+        }
+
         if (changed) {
             setChanged();
         }
@@ -137,7 +202,13 @@ public class Model extends Observable {
      *  Empty spaces are stored as null.
      * */
     public static boolean emptySpaceExists(Board b) {
-        // TODO: Fill in this function.
+        for (int row = b.size() - 1; row >= 0; row -= 1) {
+            for (int col = 0; col < b.size(); col += 1) {
+                if(b.tile(col, row) == null) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -147,7 +218,13 @@ public class Model extends Observable {
      * given a Tile object t, we get its value with t.value().
      */
     public static boolean maxTileExists(Board b) {
-        // TODO: Fill in this function.
+        for (int row = b.size() - 1; row >= 0; row -= 1) {
+            for (int col = 0; col < b.size(); col += 1) {
+                if(b.tile(col, row) != null && b.tile(col, row).value() == MAX_PIECE) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -158,7 +235,23 @@ public class Model extends Observable {
      * 2. There are two adjacent tiles with the same value.
      */
     public static boolean atLeastOneMoveExists(Board b) {
-        // TODO: Fill in this function.
+        for (int row = b.size() - 1; row >= 0; row -= 1) {
+            for (int col = 0; col < b.size(); col += 1) {
+                if(b.tile(col, row) == null) {
+                    return true;
+                }
+                else if(col < b.size() - 1) {
+                    if(b.tile(col + 1, row) != null && b.tile(col, row).value() == b.tile(col + 1, row).value()) {
+                        return true;
+                    }
+                }
+                else if(row != 0) {
+                    if(b.tile(col, row - 1) != null && b.tile(col, row).value() == b.tile(col, row - 1).value()) {
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 
