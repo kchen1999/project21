@@ -40,7 +40,7 @@ public class TimeAList {
         AList<Integer> opCount = new AList<>();
         int nSize = 500;
 
-        for(int i = 0; i < 19; i++) {
+        for(int i = 0; i < 14; i++) {
             nSize = nSize * 2;
             timeAList(Ns, times, opCount, nSize);
         }
