@@ -21,11 +21,15 @@ public class LinkedListDeque<T> {
     }
 
     public void addFirst(T item) {
-        return;
+        sentinel.next = new IntNode(item, sentinel, sentinel.next);
+        sentinel.next.next.prev = sentinel.next;
+        size = size + 1;
     }
 
     public void addLast(T item) {
-        return;
+        sentinel.prev = new IntNode(item, sentinel.prev, sentinel);
+        sentinel.prev.prev.next = sentinel.prev;
+        size = size + 1; 
     }
 
     public boolean isEmpty() {
