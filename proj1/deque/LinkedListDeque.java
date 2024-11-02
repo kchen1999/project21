@@ -1,9 +1,14 @@
 package deque;
 
 public class LinkedListDeque<T> {
-
     private int size;
+    private IntNode sentinel;
 
+    private class IntNode {
+        T item;
+        IntNode next;
+        IntNode prev;
+    }
     public LinkedListDeque() {
         size = 0;
     }
