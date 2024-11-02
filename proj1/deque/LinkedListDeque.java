@@ -29,10 +29,13 @@ public class LinkedListDeque<T> {
     public void addLast(T item) {
         sentinel.prev = new IntNode(item, sentinel.prev, sentinel);
         sentinel.prev.prev.next = sentinel.prev;
-        size = size + 1; 
+        size = size + 1;
     }
 
     public boolean isEmpty() {
+        if(size == 0) {
+            return true
+        }
         return false;
     }
 
@@ -45,11 +48,35 @@ public class LinkedListDeque<T> {
     }
 
     public T removeFirst() {
-        return null;
+        if(size == 0) {
+            return null;
+        }
+        else if(size == 1) {
+            T tmp = sentinel.next.item;
+            sentinel.next = null;
+            sentinel.prev = null;
+            return tmp;
+        }
+        T tmp = sentinel.next.item;
+        sentinel.next = sentinel.next.next;
+        sentinel.next.prev = sentinel;
+        return tmp;
     }
 
     public T removeLast() {
-        return null;
+        if(size == 0) {
+            return null;
+        }
+        else if(size == 1) {
+            T tmp = sentinel.prev.item;
+            sentinel.next = null;
+            sentinel.prev = null;
+            return tmp;
+        }
+        T tmp = sentinel.prev.item;
+        sentinel.prev = sentinel.prev.prev;
+        sentinel.prev.next = sentinel;
+        return tmp; 
     }
 
     public T get(int index) {
