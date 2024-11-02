@@ -5,12 +5,19 @@ public class LinkedListDeque<T> {
     private IntNode sentinel;
 
     private class IntNode {
-        T item;
-        IntNode next;
-        IntNode prev;
+        public T item;
+        public IntNode prev;
+        public IntNode next;
+
+        public IntNode(T i, IntNode p, IntNode n) {
+            item = i;
+            prev = p;
+            next = n;
+        }
     }
     public LinkedListDeque() {
         size = 0;
+        sentinel = new IntNode(null, null, null);
     }
 
     public void addFirst(T item) {
