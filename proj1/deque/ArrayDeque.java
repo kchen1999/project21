@@ -9,11 +9,14 @@ public class ArrayDeque<T> {
     public ArrayDeque() {
         size = 0;
         items = (T []) new Object[8];
-        nextFirst = 4;
-        nextLast = 5;
+        nextFirst = items.length / 2;
+        nextLast = nextFirst + 1;
     }
 
     public void addFirst(T item) {
+        if(size == items.length) {
+            resize(size * 2);
+        }
         items[nextFirst] = item;
         if(nextFirst == 0) {
             nextFirst = items.length - 1;
@@ -25,6 +28,9 @@ public class ArrayDeque<T> {
     }
 
     public void addLast(T item) {
+        if(size == items.length) {
+            resize(size * 2);
+        }
         items[nextLast] = item;
         if(nextLast == items.length - 1) {
             nextLast = 0;
@@ -33,6 +39,18 @@ public class ArrayDeque<T> {
             nextLast = nextLast + 1;
         }
         size = size + 1;
+    }
+
+    public void resize(int capacity) {
+        T[] tmp = (T []) new Object[size];
+        for(int i = 0; i < size; i++) {
+            tmp[i] = items[(i + nextFirst + 1) % items.length];
+        }
+        T[] a = (T []) new Object[capacity];
+        System.arraycopy(tmp, 0, a, capacity / 2, size);
+        nextFirst = capacity / 2 - 1;
+        nextLast = 0;
+        items = a;
     }
 
     public boolean isEmpty() {
@@ -47,8 +65,9 @@ public class ArrayDeque<T> {
     }
 
     public void printDeque() {
+
         for(int i = 0; i < size; i++) {
-            System.out.print(items[i] + " ");
+            System.out.print(items[(nextFirst + 1 + i) % items.length] + " ");
         }
         System.out.println("");
     }
@@ -56,6 +75,9 @@ public class ArrayDeque<T> {
     public T removeFirst() {
         if(size == 0) {
             return null;
+        }
+        if(items.length >= 16 && (double) (size - 1) / (double) items.length < 0.25) {
+            resize(size * 2);
         }
         T tmp;
         if(nextFirst == items.length - 1) {
@@ -76,6 +98,9 @@ public class ArrayDeque<T> {
         if(size == 0) {
             return null;
         }
+        if(items.length >= 16 && (double) (size - 1) / (double) items.length < 0.25) {
+            resize(size * 2);
+        }
         T tmp;
         if(nextLast == 0) {
             tmp = items[items.length - 1];
@@ -95,7 +120,7 @@ public class ArrayDeque<T> {
         if(index > items.length - 1) {
             return null;
         }
-        return items[index];
+        return items[(nextFirst + 1 + index) % items.length];
     }
 
 
