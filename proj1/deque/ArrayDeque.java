@@ -14,10 +14,24 @@ public class ArrayDeque<T> {
     }
 
     public void addFirst(T item) {
+        items[nextFirst] = item;
+        if(nextFirst == 0) {
+            nextFirst = items.length - 1;
+        }
+        else {
+            nextFirst = nextFirst - 1;
+        }
         size = size + 1;
     }
 
     public void addLast(T item) {
+        items[nextLast] = item;
+        if(nextLast == items.length - 1) {
+            nextLast = 0;
+        }
+        else {
+            nextLast = nextLast + 1;
+        }
         size = size + 1;
     }
 
@@ -33,26 +47,55 @@ public class ArrayDeque<T> {
     }
 
     public void printDeque() {
-        return;
+        for(int i = 0; i < size; i++) {
+            System.out.print(items[i] + " ");
+        }
+        System.out.println("");
     }
 
     public T removeFirst() {
         if(size == 0) {
             return null;
         }
-        else if(size == 1) {
-
+        T tmp;
+        if(nextFirst == items.length - 1) {
+            tmp = items[0];
+            items[0] = null;
+            nextFirst = 0;
         }
-
+        else {
+            tmp = items[nextFirst + 1];
+            items[nextFirst + 1] = null;
+            nextFirst = nextFirst + 1;
+        }
+        size = size - 1;
+        return tmp;
     }
 
     public T removeLast() {
         if(size == 0) {
             return null;
         }
+        T tmp;
+        if(nextLast == 0) {
+            tmp = items[items.length - 1];
+            items[items.length - 1] = null;
+            nextLast = items.length - 1;
+        }
+        else {
+            tmp = items[nextLast - 1];
+            items[nextLast - 1] = null;
+            nextLast = nextLast - 1;
+        }
+        size = size - 1;
+        return tmp;
     }
 
     public T get(int index) {
+        if(index > items.length - 1) {
+            return null;
+        }
+        return items[index];
     }
 
 
