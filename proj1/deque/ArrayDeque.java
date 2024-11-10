@@ -41,23 +41,30 @@ public class ArrayDeque<T> {
         size = size + 1;
     }
 
-    public void resize(int capacity) {
-        T[] tmp = (T []) new Object[size];
+    private void resize(int capacity) {
+        /*T[] tmp = (T []) new Object[size];
         for(int i = 0; i < size; i++) {
             tmp[i] = items[(i + nextFirst + 1) % items.length];
-        }
+        } */
         T[] a = (T []) new Object[capacity];
-        System.arraycopy(tmp, 0, a, capacity / 2, size);
+        int currentFirst = (nextFirst + 1) % items.length;
+        int currentLast = (nextLast - 1) % items.length;
+        if(currentLast > currentFirst) {
+            System.arraycopy(items, currentFirst, a, capacity / 2, size);
+        }
+        else {
+            System.arraycopy(items, currentFirst, a ,capacity / 2, items.length - currentFirst);
+            System.arraycopy(items, 0, a, capacity / 2 + items.length - currentFirst, currentLast + 1);
+        }
+
+        //System.arraycopy(tmp, 0, a, capacity / 2, size);
         nextFirst = capacity / 2 - 1;
         nextLast = 0;
         items = a;
     }
 
     public boolean isEmpty() {
-        if(size == 0) {
-            return true;
-        }
-        return false;
+        return size == 0;
     }
 
     public int size() {
