@@ -1,6 +1,8 @@
 package deque;
 
-public class ArrayDeque<T> {
+import java.util.Iterator;
+
+public class ArrayDeque<T> implements Iterable<T> {
     private int size;
     private T [] items;
     private int nextFirst;
@@ -11,6 +13,35 @@ public class ArrayDeque<T> {
         items = (T []) new Object[8];
         nextFirst = items.length / 2;
         nextLast = nextFirst + 1;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new ArrayDequeIterator();
+    }
+
+    private class ArrayDequeIterator implements Iterator<T> {
+        int index;
+        int count;
+        ArrayDequeIterator() {
+            index = (nextFirst + 1) % items.length;
+            count = 0;
+        }
+        @Override
+        public boolean hasNext() {
+            return count < size;
+        }
+
+        @Override
+        public T next() {
+            T tmp = items[index];
+            index += 1;
+            count += 1;
+            if(index == items.length) {
+                index = 0;
+            }
+            return tmp;
+        }
     }
 
     public void addFirst(T item) {
@@ -84,7 +115,7 @@ public class ArrayDeque<T> {
             return null;
         }
         if(items.length >= 16 && (double) (size - 1) / (double) items.length < 0.25) {
-            resize(size * 2);
+            resize(items.length / 2);
         }
         T tmp;
         if(nextFirst == items.length - 1) {
@@ -106,7 +137,7 @@ public class ArrayDeque<T> {
             return null;
         }
         if(items.length >= 16 && (double) (size - 1) / (double) items.length < 0.25) {
-            resize(size * 2);
+            resize(items.length / 2);
         }
         T tmp;
         if(nextLast == 0) {
@@ -130,8 +161,26 @@ public class ArrayDeque<T> {
         return items[(nextFirst + 1 + index) % items.length];
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(!(obj instanceof ArrayDeque)) {
+            return false;
+        }
+        ArrayDeque ad1 = (ArrayDeque) obj;
+        if(size != ad1.size()) {
+            return false;
+        }
+        for(int i = 0; i < size; i++) {
+            if(!get(i).equals(ad1.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     public static void main(String[] args) {
 
     }
+
 }
