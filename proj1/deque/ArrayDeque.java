@@ -77,8 +77,9 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
         if (currentLast > currentFirst) {
             System.arraycopy(items, currentFirst, a, capacity / 2, size);
         } else {
-            System.arraycopy(items, currentFirst, a ,capacity / 2, items.length - currentFirst);
-            System.arraycopy(items, 0, a, capacity / 2 + items.length - currentFirst, currentLast + 1);
+            System.arraycopy(items, currentFirst, a ,capacity / 2,items.length - currentFirst);
+            System.arraycopy(items, 0, a, capacity / 2 + items.length - currentFirst, currentLast
+                    + 1);
         }
 
         nextFirst = capacity / 2 - 1;
@@ -149,10 +150,10 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof ArrayDeque)) {
+        if (!(obj instanceof Deque)) {
             return false;
         }
-        ArrayDeque ad1 = (ArrayDeque) obj;
+        Deque ad1 = (Deque) obj;
         if (size != ad1.size()) {
             return false;
         }
