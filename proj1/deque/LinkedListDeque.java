@@ -150,7 +150,7 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         if (size != d1.size()) {
             return false;
         }
-        if(obj instanceof LinkedListDeque) {
+        if (obj instanceof LinkedListDeque) {
             IntNode p = sentinel.next;
             for (int i = 0; i < size; i++) {
                 if (!p.item.equals(d1.get(i))) {
@@ -158,8 +158,7 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
                 }
                 p = p.next;
             }
-        }
-        else {
+        } else {
             for (int i = 0; i < size; i++) {
                 if (!get(i).equals(d1.get(i))) {
                     return false;

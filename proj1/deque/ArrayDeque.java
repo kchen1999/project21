@@ -77,7 +77,7 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
         if (currentLast > currentFirst) {
             System.arraycopy(items, currentFirst, a, capacity / 2, size);
         } else {
-            System.arraycopy(items, currentFirst, a ,capacity / 2,items.length - currentFirst);
+            System.arraycopy(items, currentFirst, a, capacity / 2, items.length - currentFirst);
             System.arraycopy(items, 0, a, capacity / 2 + items.length - currentFirst, currentLast
                     + 1);
         }
