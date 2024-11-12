@@ -2,7 +2,7 @@ package deque;
 
 import java.util.Iterator;
 
-public class ArrayDeque<T> implements Iterable<T> {
+public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
     private int size;
     private T [] items;
     private int nextFirst;
@@ -73,10 +73,6 @@ public class ArrayDeque<T> implements Iterable<T> {
     }
 
     private void resize(int capacity) {
-        /*T[] tmp = (T []) new Object[size];
-        for(int i = 0; i < size; i++) {
-            tmp[i] = items[(i + nextFirst + 1) % items.length];
-        } */
         T[] a = (T []) new Object[capacity];
         int currentFirst = (nextFirst + 1) % items.length;
         int currentLast = (nextLast - 1) % items.length;
@@ -88,14 +84,9 @@ public class ArrayDeque<T> implements Iterable<T> {
             System.arraycopy(items, 0, a, capacity / 2 + items.length - currentFirst, currentLast + 1);
         }
 
-        //System.arraycopy(tmp, 0, a, capacity / 2, size);
         nextFirst = capacity / 2 - 1;
         nextLast = 0;
         items = a;
-    }
-
-    public boolean isEmpty() {
-        return size == 0;
     }
 
     public int size() {
