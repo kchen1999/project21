@@ -1,5 +1,8 @@
 package bstmap;
 
+import edu.princeton.cs.algs4.BST;
+
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -61,6 +64,46 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
     }
 
+    /* Removes the mapping for the specified key from this map if present.
+     * Not required for Lab 7. If you don't implement this, throw an
+     * UnsupportedOperationException. */
+    public V remove(K key) {
+        if (key == null) {
+            throw new IllegalArgumentException();
+        }
+        if (key.compareTo(root.key) == 0) {
+            BSTNode tmp = root;
+            root = root.remove(key, root);
+            size -= 1;
+            return tmp.val;
+        }
+        BSTNode lookup = root.get(key, root);
+        if (lookup == null) {
+            return null;
+        }
+        BSTNode tmp = lookup;
+        lookup.remove(key, root);
+        size -= 1;
+        if (tmp == null) {
+            return null;
+        }
+        return tmp.val;
+    }
+
+    /* Removes the entry for the specified key only if it is currently mapped to
+     * the specified value. Not required for Lab 7. If you don't implement this,
+     * throw an UnsupportedOperationException.*/
+    public V remove(K key, V value) {
+        if (key == null) {
+            throw new IllegalArgumentException();
+        }
+        if (!get(key).equals(value)) {
+            return remove(key);
+        }
+        return null;
+    }
+
+
     private class BSTNode {
         K key;
         V val;
@@ -78,9 +121,9 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
                 return null;
             }
             if (key.compareTo(n.key) < 0) {
-                get(key, n.left);
+                n = get(key, n.left);
             } else if (key.compareTo(n.key) > 0) {
-                get(key, n.right);
+                n = get(key, n.right);
             }
             return n;
         }
@@ -94,11 +137,56 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
                 n.left = put(key, value, n.left);
             } else if (key.compareTo(n.key) > 0) {
                 n.right = put(key, value, n.right);
+            } else {
+                n.val = value;
             }
-            n.val = value;
             return n;
         }
+
+        private BSTNode findMaxNodeLeftBST(BSTNode n) {
+            if (n == null) {
+                return null;
+            }
+            if (n.right == null) {
+                BSTNode tmp = n;
+                n.remove(n.key, n);
+                return tmp;
+            }
+            return findMaxNodeLeftBST(n.right);
+        }
+
+
+        private BSTNode remove(K key, BSTNode n) {
+            if (n == null) {
+                return null;
+            }
+            if (key.compareTo(n.key) < 0) {
+                n.left = remove(key, n.left);
+                return n;
+            } else if (key.compareTo(n.key) > 0) {
+                n.right = remove(key, n.right);
+                return n;
+            }
+            else {
+                if (n.left == null && n.right == null) {
+                    return null;
+                } else if (n.left != null && n.right == null) {
+                    return n.left;
+                } else if (n.left == null && n.right != null) {
+                    return n.right;
+                } else {
+                    BSTNode tmp = n;
+                    BSTNode maxLeftNode = findMaxNodeLeftBST(n.left);
+                    n.key = maxLeftNode.key;
+                    n.val = maxLeftNode.val;
+                    return tmp;
+                }
+            }
+        }
+
     }
+
+
 
     public void printInOrder() {
         for(K key : this) {
@@ -136,23 +224,13 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         }
     }
 
+
+
     /* Returns a Set view of the keys contained in this map. Not required for Lab 7.
      * If you don't implement this, throw an UnsupportedOperationException. */
     public Set<K> keySet() {
         throw new UnsupportedOperationException();
     }
 
-    /* Removes the mapping for the specified key from this map if present.
-     * Not required for Lab 7. If you don't implement this, throw an
-     * UnsupportedOperationException. */
-    public V remove(K key) {
-        throw new UnsupportedOperationException();
-    }
 
-    /* Removes the entry for the specified key only if it is currently mapped to
-     * the specified value. Not required for Lab 7. If you don't implement this,
-     * throw an UnsupportedOperationException.*/
-    public V remove(K key, V value) {
-        throw new UnsupportedOperationException();
-    }
 }
