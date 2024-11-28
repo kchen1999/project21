@@ -1,0 +1,190 @@
+//This part is the RandomSpeedTest
+
+ This program inserts random Strings of length L
+ Into different types of maps as <String, Integer> pairs.
+
+What would you like L to be?: 10
+
+Enter # strings to insert into hashmap.ULLMap: 1000
+class hashmap.ULLMap: 0.01 sec
+
+Enter # strings to insert into your hashmap.MyHashMap: null
+1000
+class hashmap.MyHashMap: 0.01 sec
+
+Enter # strings to insert into Java's HashMap: 1000
+Java's Built-in HashMap: 0.00 sec
+
+Would you like to try more timed-tests? (y/n)y
+
+Enter # strings to insert into hashmap.ULLMap: 10000
+class hashmap.ULLMap: 0.32 sec
+
+Enter # strings to insert into your hashmap.MyHashMap: null
+10000
+class hashmap.MyHashMap: 0.02 sec
+
+Enter # strings to insert into Java's HashMap: 10000
+10000
+Java's Built-in HashMap: 0.01 sec
+
+Would you like to try more timed-tests? (y/n)
+Enter # strings to insert into hashmap.ULLMap: y
+Please enter a positive integer: 100000
+--Stack Overflow -- couldn't add 100000 strings of length 10.
+
+Enter # strings to insert into your hashmap.MyHashMap: null
+100000
+class hashmap.MyHashMap: 0.11 sec
+
+Enter # strings to insert into Java's HashMap: 100000
+Java's Built-in HashMap: 0.05 sec
+
+Would you like to try more timed-tests? (y/n)y
+
+Enter # strings to insert into hashmap.ULLMap: 50000
+--Stack Overflow -- couldn't add 50000 strings of length 10.
+
+Enter # strings to insert into your hashmap.MyHashMap: null
+1000000
+class hashmap.MyHashMap: 1.02 sec
+
+Enter # strings to insert into Java's HashMap: 1000000
+Java's Built-in HashMap: 0.34 sec
+
+Would you like to try more timed-tests? (y/n)y
+
+Enter # strings to insert into hashmap.ULLMap: 20000
+class hashmap.ULLMap: 1.21 sec
+
+Enter # strings to insert into your hashmap.MyHashMap: null
+20000
+class hashmap.MyHashMap: 0.02 sec
+
+Enter # strings to insert into Java's HashMap: 20000
+Java's Built-in HashMap: 0.01 sec
+
+Would you like to try more timed-tests? (y/n)y
+
+Enter # strings to insert into hashmap.ULLMap: 30000
+class hashmap.ULLMap: 3.15 sec
+
+Enter # strings to insert into your hashmap.MyHashMap: null
+30000
+class hashmap.MyHashMap: 0.02 sec
+
+Enter # strings to insert into Java's HashMap: 30000
+Java's Built-in HashMap: 0.04 sec
+
+Would you like to try more timed-tests? (y/n)y
+
+Enter # strings to insert into hashmap.ULLMap: 40000
+class hashmap.ULLMap: 4.68 sec
+
+Enter # strings to insert into your hashmap.MyHashMap: null
+40000
+class hashmap.MyHashMap: 0.03 sec
+
+Enter # strings to insert into Java's HashMap: 40000
+Java's Built-in HashMap: 0.02 sec
+
+Would you like to try more timed-tests? (y/n)n
+
+//This part is the InOrderSpeedTest
+
+This program inserts lexicographically increasing Stringsinto Maps as <String, Integer> pairs.
+
+Enter # strings to insert into hashmap.ULLMap: 1000
+class hashmap.ULLMap: 0.02 sec
+
+Enter # strings to insert into hashmap.MyHashMap: null
+1000
+class hashmap.MyHashMap: 0.01 sec
+
+Enter # strings to insert into Java's HashMap: 1000
+Java's Built-in HashMap: 0.00 sec
+
+Would you like to try more timed-tests? (y/n): y
+
+Enter # strings to insert into hashmap.ULLMap: 10000
+class hashmap.ULLMap: 0.53 sec
+
+Enter # strings to insert into hashmap.MyHashMap: null
+10000
+class hashmap.MyHashMap: 0.02 sec
+
+Enter # strings to insert into Java's HashMap: 10000
+Java's Built-in HashMap: 0.01 sec
+
+Would you like to try more timed-tests? (y/n): y
+
+Enter # strings to insert into hashmap.ULLMap: 20000
+class hashmap.ULLMap: 1.82 sec
+
+Enter # strings to insert into hashmap.MyHashMap: null
+20000
+class hashmap.MyHashMap: 0.01 sec
+
+Enter # strings to insert into Java's HashMap: 20000
+Java's Built-in HashMap: 0.01 sec
+
+Would you like to try more timed-tests? (y/n): y
+
+Enter # strings to insert into hashmap.ULLMap: 30000
+class hashmap.ULLMap: 5.35 sec
+
+Enter # strings to insert into hashmap.MyHashMap: null
+30000
+class hashmap.MyHashMap: 0.03 sec
+
+Enter # strings to insert into Java's HashMap: 30000
+Java's Built-in HashMap: 0.02 sec
+
+Would you like to try more timed-tests? (y/n): y
+
+Enter # strings to insert into hashmap.ULLMap: 50000
+50000
+--Stack Overflow -- couldn't add 50000 strings.
+
+Enter # strings to insert into hashmap.MyHashMap: null
+class hashmap.MyHashMap: 0.03 sec
+
+Enter # strings to insert into Java's HashMap: 50000
+Java's Built-in HashMap: 0.02 sec
+
+Would you like to try more timed-tests? (y/n): y
+
+Enter # strings to insert into hashmap.ULLMap: 100000
+--Stack Overflow -- couldn't add 100000 strings.
+
+Enter # strings to insert into hashmap.MyHashMap: null
+100000
+class hashmap.MyHashMap: 0.05 sec
+
+Enter # strings to insert into Java's HashMap: 100000
+Java's Built-in HashMap: 0.05 sec
+
+Would you like to try more timed-tests? (y/n): y
+
+Enter # strings to insert into hashmap.ULLMap: 10000
+class hashmap.ULLMap: 0.53 sec
+
+Enter # strings to insert into hashmap.MyHashMap: null
+1000000
+class hashmap.MyHashMap: 0.57 sec
+
+Enter # strings to insert into Java's HashMap: 1000000
+Java's Built-in HashMap: 0.39 sec
+
+Would you like to try more timed-tests? (y/n): y
+
+Enter # strings to insert into hashmap.ULLMap: 3000000
+--Stack Overflow -- couldn't add 3000000 strings.
+
+Enter # strings to insert into hashmap.MyHashMap: null
+3000000
+class hashmap.MyHashMap: 1.20 sec
+
+Enter # strings to insert into Java's HashMap: 3000000
+Java's Built-in HashMap: 0.68 sec
+
